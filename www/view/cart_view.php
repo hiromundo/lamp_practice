@@ -40,7 +40,7 @@
             </td>
             <td><?php print(number_format($cart['price'] * $cart['amount'])); ?>円</td>
             <td>
-
+              <!-- カート内の商品を取り消し -->
               <form method="post" action="cart_delete_cart.php">
                 <input type="submit" value="削除" class="btn btn-danger delete">
                 <input type="hidden" name="cart_id" value="<?php print($cart['cart_id']); ?>">
