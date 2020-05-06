@@ -80,6 +80,7 @@ function is_valid_user($name, $password, $password_confirmation){
 // 有効なユーザー名かチェックする関数
 function is_valid_user_name($name) {
   $is_valid = true;
+  // dd($is_valid);
   if(is_valid_length($name, USER_NAME_LENGTH_MIN, USER_NAME_LENGTH_MAX) === false){
     set_error('ユーザー名は'. USER_NAME_LENGTH_MIN . '文字以上、' . USER_NAME_LENGTH_MAX . '文字以内にしてください。');
     $is_valid = false;
@@ -113,7 +114,7 @@ function insert_user($db, $name, $password){
   $sql = "
     INSERT INTO
       users(name, password)
-    VALUES ('?', '?');
+    VALUES ('?','?');
   ";
   //クエリの準備から実行
   return execute_query($db, $sql,array($name,$password));

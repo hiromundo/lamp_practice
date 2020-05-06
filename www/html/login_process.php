@@ -5,6 +5,10 @@ require_once MODEL_PATH . 'user.php';
 
 session_start();
 
+//悪意のあるユーザーかチェック
+token_check();
+
+
 if(is_logined() === true){
   // セッションがあれば、index.phpにリダレクト
   redirect_to(HOME_URL);
@@ -12,12 +16,16 @@ if(is_logined() === true){
 // ユーザ名、パスワードをPOSTで取得
 $name = get_post('name');
 $password = get_post('password');
-
+$csrf_token = get_post('csrf_token');
 // PDOを取得
 $db = get_db_connect();
 
 //ログイン情報を照合
 $user = login_as($db, $name, $password);
+
+//token削除
+
+
 if( $user === false){
   set_error('ログインに失敗しました。');
   redirect_to(LOGIN_URL);

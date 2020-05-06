@@ -86,8 +86,10 @@ function get_upload_filename($file){
   $ext = PERMITTED_IMAGE_TYPES[$mimetype];
   return get_random_string() . '.' . $ext;
 }
-
+// ランダムな文字列を取得する関数
 function get_random_string($length = 20){
+  // 文字列 substr()string の、start で指定された位置から length バイト分の文字列を返します。
+  // 
   return substr(base_convert(hash('sha256', uniqid()), 16, 36), 0, $length);
 }
 
@@ -153,4 +155,36 @@ function entity_array($assoc_array) {
   return $assoc_array;
 }
 
+// トークンの生成
+function get_csrf_token(){
+  // get_random_string()はユーザー定義関数。
+  $token = get_random_string(30);
+  // set_session()はユーザー定義関数。
+  set_session('csrf_token', $token);
+  return $token;
+}
 
+// トークンのチェック
+function is_valid_csrf_token($token){
+  if($token === '') {
+    return false;
+  }
+  // get_session()はユーザー定義関数
+  return $token === get_session('csrf_token');
+}
+
+function token_check(){
+  if(is_valid_csrf_token($_POST['csrf_token']) === false){
+    $_SESSION = [];
+    session_destroy();
+    redirect_to(LOGIN_URL);
+  } 
+}
+function create_csrf_token(){
+  global $csrf_token;
+  $csrf_token = get_csrf_token();
+}
+function put_csrf_token(){
+  global $csrf_token;
+  print "<input type='hidden' name='csrf_token' value='{$csrf_token}'>";
+}

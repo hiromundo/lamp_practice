@@ -7,7 +7,8 @@ require_once MODEL_PATH . 'cart.php';
 
 //ログインチェックを行うため、セッションを開始する
 session_start();
-
+//悪意のあるユーザーかチェック
+token_check();
 // $_SESSION['user_id']があるかチェック
 if(is_logined() === false){
   // ログインしてないときはログインページにリダイレクト
