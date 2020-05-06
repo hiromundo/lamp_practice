@@ -74,6 +74,7 @@ function is_valid_user($name, $password, $password_confirmation){
   // 短絡評価を避けるため一旦代入。
   $is_valid_user_name = is_valid_user_name($name);
   $is_valid_password = is_valid_password($password, $password_confirmation);
+  //dd($is_valid_password);
   return $is_valid_user_name && $is_valid_password ;
 }
 
@@ -114,9 +115,9 @@ function insert_user($db, $name, $password){
   $sql = "
     INSERT INTO
       users(name, password)
-    VALUES ('?','?');
+    VALUES (?, ?)
   ";
   //クエリの準備から実行
-  return execute_query($db, $sql,array($name,$password));
+  return execute_query($db, $sql, array($name,$password));
 }
 

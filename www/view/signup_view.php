@@ -32,7 +32,7 @@
       </div>
       <input type="submit" value="登録" class="btn btn-primary">
       <!-- token -->
-      <!-- <?php //put_csrf_token(); ?> -->
+      <?php put_csrf_token(); ?>
     </form>
   </div>
 </body>
