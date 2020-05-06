@@ -11,6 +11,9 @@ require_once '../model/item.php';
 // ログインチェックを行うため、セッションを開始する
 session_start();
 
+//ワンタイムトークンの生成
+create_csrf_token();
+//dd($_SESSION);
 // $_SESSION['user_id']があるかチェック
 if(is_logined() === false){
   // ログインしていない場合はログインページにリダイレクト

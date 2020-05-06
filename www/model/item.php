@@ -88,7 +88,7 @@ function insert_item($db, $name, $price, $stock, $filename, $status){
         image,
         status
       )
-    VALUES('?', ?, ?, '?', ?);
+    VALUES(?, ?, ?, ?, ?);
   ";
 
   return execute_query($db, $sql,array($name,$price,$stock,$filename,$status_value));

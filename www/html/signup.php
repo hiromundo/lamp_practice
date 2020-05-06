@@ -8,6 +8,9 @@ require_once MODEL_PATH . 'functions.php';
 // ログインチェックを行うため、セッションを開始する 
 session_start();
 
+//ワンタイムトークンの生成
+create_csrf_token();
+
 // is_loginedのreturnが trueならindex.phpにリダイレクト
 if(is_logined() === true){
   redirect_to(HOME_URL);

@@ -9,6 +9,12 @@ require_once MODEL_PATH . 'user.php';
 // ログインチェックを行うため、セッションを開始する
 session_start();
 
+//悪意のあるユーザーかチェック
+token_check();
+//トークン変数を破棄
+unset($_SESSION['csrf_token']);
+
+//dd($_SESSION);
 // ログインチェック用関数を利用
 if(is_logined() === true){
   // ログインされていれば、index.phpにリダイレクト
@@ -27,6 +33,7 @@ $db = get_db_connect();
 try{
   // ユーザー情報登録関数
   $result = regist_user($db, $name, $password, $password_confirmation);
+  //dd($result);
   if( $result=== false){
     set_error('ユーザー登録に失敗しました。');
     // sighnup.phpにリダイレクト
@@ -34,6 +41,7 @@ try{
   }
 }catch(PDOException $e){
   set_error('ユーザー登録に失敗しました。');
+  //redirect_to(LOGIN_URL);
   redirect_to(SIGNUP_URL);
 }
 // セッション変数に代入

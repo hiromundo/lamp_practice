@@ -7,6 +7,10 @@ require_once MODEL_PATH . 'cart.php';
 
 //ログインチェックを行うため、セッションを開始する
 session_start();
+//悪意のあるユーザーかチェック
+token_check();
+//トークン変数を破棄
+unset($_SESSION['csrf_token']);
 
 // $_SESSION['user_id']があるかチェック
 if(is_logined() === false){

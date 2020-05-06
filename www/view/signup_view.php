@@ -31,6 +31,8 @@
         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
       </div>
       <input type="submit" value="登録" class="btn btn-primary">
+      <!-- token -->
+      <?php put_csrf_token(); ?>
     </form>
   </div>
 </body>

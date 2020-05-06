@@ -21,6 +21,8 @@
         <label for="password">パスワード: </label>
         <input type="password" name="password" id="password" class="form-control">
       </div>
+      <!-- token -->
+      <?php put_csrf_token(); ?>
       <input type="submit" value="ログイン" class="btn btn-primary">
     </form>
   </div>

@@ -6,6 +6,9 @@ require_once MODEL_PATH . 'item.php';
 
 session_start();
 
+//ワンタイムトークンの生成
+create_csrf_token();
+
 if(is_logined() === false){
   redirect_to(LOGIN_URL);
 }
