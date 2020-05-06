@@ -11,6 +11,10 @@ session_start();
 
 //悪意のあるユーザーかチェック
 token_check();
+//トークン変数を破棄
+unset($_SESSION['csrf_token']);
+
+//dd($_SESSION);
 // ログインチェック用関数を利用
 if(is_logined() === true){
   // ログインされていれば、index.phpにリダイレクト

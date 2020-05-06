@@ -13,7 +13,6 @@ session_start();
 
 //ワンタイムトークンの生成
 create_csrf_token();
-
 //dd($_SESSION);
 // $_SESSION['user_id']があるかチェック
 if(is_logined() === false){

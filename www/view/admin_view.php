@@ -45,6 +45,8 @@
       </div>
       
       <input type="submit" value="商品追加" class="btn btn-primary">
+      <!-- token -->
+      <?php put_csrf_token(); ?>
     </form>
 
 
@@ -76,6 +78,8 @@
                 </div>
                 <input type="submit" value="変更" class="btn btn-secondary">
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                <!-- token -->
+                <?php put_csrf_token(); ?>
               </form>
             </td>
             <td>
@@ -89,11 +93,14 @@
                   <input type="hidden" name="changes_to" value="open">
                 <?php } ?>
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                <!-- token --> 
+                <?php put_csrf_token(); ?>
               </form>
                   <!-- 商品コードを削除 -->
               <form method="post" action="admin_delete_item.php">
                 <input type="submit" value="削除" class="btn btn-danger delete">
                 <input type="hidden" name="item_id" value="<?php print($item['item_id']); ?>">
+                <?php put_csrf_token(); ?>
               </form>
 
             </td>

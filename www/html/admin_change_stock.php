@@ -6,6 +6,11 @@ require_once MODEL_PATH . 'item.php';
 
 session_start();
 
+//悪意のあるユーザーかチェック
+token_check();
+//トークン変数を破棄
+unset($_SESSION['csrf_token']);
+
 if(is_logined() === false){
   redirect_to(LOGIN_URL);
 }

@@ -9,6 +9,9 @@ require_once MODEL_PATH . 'cart.php';
 session_start();
 //悪意のあるユーザーかチェック
 token_check();
+//トークン変数を破棄
+unset($_SESSION['csrf_token']);
+
 // $_SESSION['user_id']があるかチェック
 if(is_logined() === false){
   // ログインしてないときはログインページにリダイレクト
