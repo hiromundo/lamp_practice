@@ -188,3 +188,7 @@ function put_csrf_token(){
   global $csrf_token;
   print "<input type='hidden' name='csrf_token' value='{$csrf_token}'>";
 }
+//パスワードのハッシュ化簡略関数
+function create_hash($password){
+  return password_hash($password, PASSWORD_DEFAULT);
+}

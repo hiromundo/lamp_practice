@@ -43,7 +43,8 @@ function login_as($db, $name, $password){
   //ユーザー情報を$user変数に代入
   $user = get_user_by_name($db, $name);
   // ユーザー情報が1件もなければfalse $passwordはポストから受け取ったpassword
-  if($user === false || $user['password'] !== $password){
+
+  if($user === false || password_verify($password,$user['password']) === false ){
     return false;
   }
   // $user['user_id']を$_SESSION['user_id]に代入
@@ -62,6 +63,7 @@ function regist_user($db, $name, $password, $password_confirmation) {
     return false;
   }
   // ユーザー登録
+  // $password = password_hash($password, PASSWORD_DEFAULT);
   return insert_user($db, $name, $password);
 }
 
@@ -118,6 +120,7 @@ function insert_user($db, $name, $password){
     VALUES (?, ?)
   ";
   //クエリの準備から実行
-  return execute_query($db, $sql, array($name,$password));
+  //パスワードのハッシュ化
+  return execute_query($db, $sql, array($name,create_hash($password)));
 }
 
