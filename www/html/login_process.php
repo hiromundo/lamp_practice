@@ -19,7 +19,6 @@ if(is_logined() === true){
 // ユーザ名、パスワードをPOSTで取得
 $name = get_post('name');
 $password = get_post('password');
-$csrf_token = get_post('csrf_token');
 // PDOを取得
 $db = get_db_connect();
 
