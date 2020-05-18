@@ -14,7 +14,16 @@
   
 
   <div class="container">
-    <h1>商品一覧</h1>
+    <div class="d-flex justify-content-between">
+      <h1>商品一覧</h1>
+      <form action="" method="get">
+        <select name="order">
+          <option value="new_arrival">新着順</option>
+          <option value="price_asc">価格の安い順</option>
+          <option value="price_desc">価格の高い順</option>
+        <input type="submit" value="並び替え">
+      </form>
+    </div>
     <!-- messages.phpはログインしましたなどのメッセージ用のファイル -->
     <?php include VIEW_PATH . 'templates/messages.php'; ?>
 
@@ -48,6 +57,15 @@
         </div>
       <?php } ?>
       </div>
+    </div>
+
+    <div>
+      <h2>人気ランキング</h2>
+      <ul>
+        <li>1位:<?php print($amount_ranking[0]['name']);?></li>
+        <li>2位:<?php print($amount_ranking[1]['name']);?></li>
+        <li>3位:<?php print($amount_ranking[2]['name']);?></li>
+      </ul>       
     </div>
   </div>
   

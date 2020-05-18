@@ -26,7 +26,7 @@ $db = get_db_connect();
 $user = get_login_user($db);
 
 if ($user['type'] === USER_TYPE_ADMIN){
-  $historys = get_purchase_historys($db);
+  $historys = get_purchase_history($db);
 } else {
   // 購入履歴を取得
   $historys = get_purchase_history($db,$user['user_id']);

@@ -192,3 +192,23 @@ function put_csrf_token(){
 function create_hash($password){
   return password_hash($password, PASSWORD_DEFAULT);
 }
+
+function get_amount_ranking($db) {
+  $sql = '
+    SELECT 
+      SUM(d.amount) as total,
+      items.name
+    FROM 
+      purchase_details AS d
+    INNER JOIN 
+      items
+    ON
+      items.item_id = d.item_id
+    GROUP BY
+      d.item_id
+    ORDER BY
+      total DESC
+    LIMIT 3
+  ';
+  return fetch_all_query($db,$sql);
+}
