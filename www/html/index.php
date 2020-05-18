@@ -24,9 +24,13 @@ if(is_logined() === false){
 $db = get_db_connect();
 // PDOを利用してログインユーザーのデータを取得
 $user = get_login_user($db);
-
+// 並べ替え変数
+$order = get_get('order');
 // 商品一覧用の商品データを取得
-$items = get_open_items($db);
+$items = get_open_items($db,$order);
+
+//購入数ランキング
+$amount_ranking = get_amount_ranking($db); 
 
 // ビューの読み込み
 include_once VIEW_PATH . 'index_view.php';

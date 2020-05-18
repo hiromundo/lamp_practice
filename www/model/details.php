@@ -61,7 +61,7 @@ function get_open_details($db,$order_id){
   return fetch_all_query($db,$sql,array($order_id));
 }
 // ログインユーザーの購入履歴を取得
-function get_purchase_history($db,$user_id){
+function get_purchase_history($db,$user_id = NULL){
   $sql = '
     SELECT 
       d.order_id, purchase_time, SUM(d.amount * d.price) AS total
@@ -70,34 +70,44 @@ function get_purchase_history($db,$user_id){
     INNER JOIN 
       purchase_history AS h
     ON 
-      d.order_id = h.order_id
-    WHERE
-      h.user_id = ?
-    GROUP BY 
-      d.order_id
-    ORDER BY
-      h.purchase_time ASC
-  ';
-  return fetch_all_query($db,$sql,array($user_id));
+      d.order_id = h.order_id 
+    ';
+    if ($user_id !== NULL){
+    $sql .= 'WHERE
+              h.user_id = ? 
+    ';
+    }
+    $sql .= 'GROUP BY 
+              d.order_id
+             ORDER BY
+              h.purchase_time ASC 
+    ';
+    if($user_id === NULL) {
+      $bind = [];
+    }else {
+      $bind = array($user_id);
+    }
+    
+  return fetch_all_query($db,$sql,$bind);
 }
-// 管理者用購入履歴を取得
-function get_purchase_historys($db){
-  $sql = '
-  SELECT 
-    d.order_id, purchase_time, SUM(d.amount * d.price) AS total
-  FROM
-    purchase_details AS d
-  INNER JOIN 
-    purchase_history AS h
-  ON 
-    d.order_id = h.order_id
-  GROUP BY
-    d.order_id
-  ORDER BY
-    h.purchase_time ASC
-  ';
-  return fetch_all_query($db,$sql);
-}
+// // 管理者用購入履歴を取得
+// function get_purchase_historys($db){
+//   $sql = '
+//   SELECT 
+//     d.order_id, purchase_time, SUM(d.amount * d.price) AS total
+//   FROM
+//     purchase_details AS d
+//   INNER JOIN 
+//     purchase_history AS h
+//   ON 
+//     d.order_id = h.order_id
+//   GROUP BY
+//     d.order_id
+//   ORDER BY
+//     h.purchase_time ASC
+//   ';
+//   return fetch_all_query($db,$sql);
+// }
 
 function insert_purchase_history($db,$user_id,$carts){
   $db->beginTransaction();

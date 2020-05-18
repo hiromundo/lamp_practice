@@ -23,7 +23,7 @@ function get_item($db, $item_id){
 }
 
 // 関数()の中の $is_open = falseはデフォルト値の設定のこと何も入ってなければfalse
-function get_items($db, $is_open = false){
+function get_items($db, $order = false, $is_open = false){
 
   //dd($is_open);
   $sql = '
@@ -42,8 +42,22 @@ function get_items($db, $is_open = false){
     $sql .= '
       WHERE status = 1
     ';
+  } 
+  if($order === 'price_asc') {
+    $sql .= '
+      ORDER BY price ASC
+    ';
+  } 
+  else if($order === 'price_desc') {
+    $sql .= '
+      ORDER BY price DESC
+    ';
   }
-
+  else if($order === '' || $order === 'new_arrival'){
+    $sql .= '
+      ORDER BY created DESC
+    ';
+  }
   return fetch_all_query($db, $sql);
 }
 
@@ -52,9 +66,9 @@ function get_all_items($db){
 }
 
 // 商品一覧用の商品データを取得
-function get_open_items($db){
+function get_open_items($db, $order){
   // trueを引数として渡す
-  return get_items($db, true);
+  return get_items($db, $order, true);
 }
 
 function regist_item($db, $name, $price, $stock, $status, $image){
